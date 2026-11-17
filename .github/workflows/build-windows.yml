@@ -1,0 +1,25 @@
+name: Build TradeStation Windows App
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Pake CLI
+        run: npm install -g pake-cli
+      - name: Build Windows Installer
+        run: pake "https://script.google.com/macros/s/AKfycbx5bKace0XCeX7iY9KJdPec8yxzJ-OjPedDW0u6-V77dlljKIQDVv2dimGrguHKrLc1/exec" --name TradeStation --icon icon-512.png --width 1280 --height 820
+      - name: Upload Windows Installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: TradeStation-Windows
+          path: |
+            *.msi
+            *.exe
