@@ -24,7 +24,7 @@ jobs:
       - name: Init & Build APK
         run: |
           mkdir -p build-apk && cd build-apk
-          yes "" | bubblewrap init --manifest="https://github.io"
+          yes "" | bubblewrap init --manifest="https://nivensmc.github.io/TradeStation/manifest.json"
           sed -i 's|"signingKey": {.*|"signingKey": { "path": "../android.keystore", "alias": "tradestation" },|' twa-manifest.json
           echo -e "android123\nandroid123" | bubblewrap build
       - name: Upload Android APK
